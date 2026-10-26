@@ -1,4 +1,4 @@
-const apiBaseUrl = "http://127.0.0.1:4017";
+const apiBaseUrl = `http://127.0.0.1:${process.env.DEMO_API_PORT ?? 4017}`;
 const recipes = ["lead-qualification", "support"] as const;
 let sequence = 0;
 

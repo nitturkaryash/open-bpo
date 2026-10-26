@@ -163,8 +163,9 @@ async function main(): Promise<void> {
     return reply.code(202).send({ status: "queued", callId, direction, qaJobId: `demo-${callId}`, session: { sessionId, jobId: `demo-${sessionId}` } });
   });
 
-  await app.listen({ host: "0.0.0.0", port: 4017 });
-  console.log("demo API ready at http://127.0.0.1:4017");
+  const port = Number(process.env.DEMO_API_PORT ?? 4017);
+  await app.listen({ host: "0.0.0.0", port });
+  console.log(`demo API ready at http://127.0.0.1:${port}`);
 }
 
 main().catch((error) => {
