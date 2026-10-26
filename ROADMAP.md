@@ -29,6 +29,12 @@ open-bpo is a small, runnable reference stack. Every item keeps the no-key mock 
 - Postgres migrations with a documented upgrade and rollback flow
 - Retry, dead-letter and replay tools for failed jobs
 - Browser tests for the golden path
+- Human handoff and supervisor intervention contracts
+- Versioned recipe registry and evaluation datasets
+- Kubernetes deployment example with production security notes
+- Retention controls for transcripts and call metadata
+
+These are directions, not release commitments. Open a feature request before starting a cross-package change.
 
 ## More starter ideas
 Unit tests for the `keyword_any`, `keyword_all`, `keyword_none` and regex checklist rules · checking that `warningThreshold` doesn't exceed `passThreshold` · a recipe-validation CLI · sorted `/v1/recipes` · copy buttons for IDs · a recipe filter · checklist version in the QA panel · loading skeletons · accessible labels and focus states · fixtures for the support and payment-reminder recipes · graceful shutdown for the API and workers.
