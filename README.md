@@ -9,7 +9,8 @@
   <a href="docs/ARCHITECTURE.md">Architecture</a> ·
   <a href="docs/RECIPE_AUTHORING.md">Recipes</a> ·
   <a href="docs/API_REFERENCE.md">API</a> ·
-  <a href="ROADMAP.md">Roadmap</a>
+  <a href="ROADMAP.md">Roadmap</a> ·
+  <a href="docs/extending.md">Add a provider</a>
 </p>
 
 <p align="center">
@@ -34,6 +35,12 @@ pnpm demo
 ```
 
 Open [http://127.0.0.1:43123](http://127.0.0.1:43123). Simulated inbound and outbound calls stream into the console with session traces and QA scores. `Ctrl+C` stops everything.
+
+Other ways to run it:
+
+- **Docker:** `docker compose up --build` starts the API, worker, web, Postgres and Redis in mock mode with no keys. The console is at http://localhost:43123. This uses the real API with Postgres, so seed it with `pnpm seed:sample`.
+- **Codespaces:** [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/nitturkaryash/open-bpo) runs `pnpm demo` automatically.
+- **Ports busy?** `DEMO_API_PORT=24017 DEMO_WEB_PORT=24123 pnpm demo`
 
 ## What you get
 

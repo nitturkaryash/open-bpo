@@ -1,3 +1,4 @@
+# Mock mode, no API keys: `docker compose up --build`, then open http://localhost:43123
 name: open-bpo
 
 services:
@@ -37,6 +38,10 @@ services:
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://open_bpo:open_bpo@postgres:5432/open_bpo
       RECIPE_ID: lead-qualification
+      TELEPHONY_PROVIDER: mock
+      STT_PROVIDER: mock
+      TTS_PROVIDER: mock
+      LLM_PROVIDER: mock
     ports:
       - "4017:4017"
     depends_on:
@@ -54,6 +59,10 @@ services:
       REDIS_URL: redis://redis:6379
       DATABASE_URL: postgresql://open_bpo:open_bpo@postgres:5432/open_bpo
       RECIPE_ID: lead-qualification
+      TELEPHONY_PROVIDER: mock
+      STT_PROVIDER: mock
+      TTS_PROVIDER: mock
+      LLM_PROVIDER: mock
     depends_on:
       postgres:
         condition: service_healthy

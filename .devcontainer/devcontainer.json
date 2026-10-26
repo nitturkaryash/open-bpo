@@ -1,0 +1,11 @@
+{
+  "name": "open-bpo",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "postCreateCommand": "corepack enable && pnpm install --frozen-lockfile",
+  "postAttachCommand": "pnpm demo",
+  "forwardPorts": [43123, 4017],
+  "portsAttributes": {
+    "43123": { "label": "console", "onAutoForward": "openBrowser" },
+    "4017": { "label": "api", "visibility": "public" }
+  }
+}
