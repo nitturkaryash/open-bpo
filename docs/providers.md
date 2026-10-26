@@ -1,6 +1,6 @@
-# Provider integration guide
+# Providers
 
-The checked-in providers are stubs. They make the full session lifecycle runnable without credentials; they do not place calls or carry audio. A production adapter should keep vendor SDKs behind the small interfaces in `packages/core` and `packages/providers`.
+With no keys, every category uses a mock adapter, so `pnpm demo` runs the full session lifecycle locally without placing calls. With your own keys you can switch on real adapters that ship in `packages/providers`: Twilio and Exotel telephony, Sarvam and Deepgram STT, Sarvam and ElevenLabs TTS, and any OpenAI-compatible or Azure OpenAI LLM (see [Configuring the built-in providers](#configuring-the-built-in-providers)). A production adapter should keep vendor SDKs behind the small interfaces in `packages/core` and `packages/providers`.
 
 ## Extension points
 

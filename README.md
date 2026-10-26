@@ -40,13 +40,13 @@ Open [http://127.0.0.1:43123](http://127.0.0.1:43123). Simulated inbound and out
 - [x] Inbound and outbound call simulation. [Quickstart](docs/QUICKSTART.md)
 - [x] Deterministic QA: versioned checklists with fatal checks. Same call, same score. [Examples](docs/QA_CHECKLISTS.md)
 - [x] Operations console for calls, sessions, traces and QA breakdowns
-- [x] Swappable telephony, STT, TTS and LLM interfaces. [Provider guide](docs/PROVIDERS.md)
+- [x] Swappable telephony, STT, TTS and LLM interfaces. [Provider guide](docs/providers.md)
 - [x] Recipes as folders: prompt, tools, QA policy. [Authoring guide](docs/RECIPE_AUTHORING.md)
   - [x] Lead qualification
   - [x] Support resolution
   - [x] Payment reminders
 - [x] Fastify API and BullMQ workers on Postgres and Redis. [API reference](docs/API_REFERENCE.md)
-- [ ] Real telephony and speech adapters (only mocks and stubs ship today, see [ROADMAP.md](ROADMAP.md))
+- [x] Optional real providers with your own keys: Twilio, Exotel, Sarvam, Deepgram, ElevenLabs, OpenAI-compatible or Azure LLM. [Provider guide](docs/providers.md)
 
 <p align="center"><img src="docs/assets/console-framed.png" alt="open-bpo operations console" width="100%"></p>
 
@@ -58,14 +58,14 @@ The hard part isn't the model. It's everything around it: queues, session state,
 
 So you need to own the stack. open-bpo is the smallest version of that stack we could make, small enough to read in an evening and run in an afternoon. It's built by the team at [QualiaBits](https://qualiabits.com).
 
-**What it is not:** a hosted product, or something that places real phone calls out of the box. It's an early, readable scaffold you own and extend.
+**What it is not:** a hosted product. It places no real calls unless you add your own provider keys. It's an early, readable scaffold you own and extend.
 
 ## How it works
 
 - **API** (`apps/api`): Fastify server. Takes demo calls or provider webhooks, stores state in Postgres, enqueues work.
 - **Worker** (`apps/worker`): BullMQ consumers that run each session loop and score it.
 - **QA** (`packages/qa`): checklist schema and scorer. Pure and deterministic, so scores can be diffed.
-- **Providers** (`packages/providers`): interfaces for telephony, STT, TTS and LLM, with mock adapters.
+- **Providers** (`packages/providers`): interfaces for telephony, STT, TTS and LLM, with mock adapters by default and optional Twilio, Exotel, Sarvam, Deepgram, ElevenLabs and OpenAI/Azure adapters.
 - **Console** (`apps/web`): React/Vite dashboard over the API.
 - **Recipes** (`recipes/`): one folder per use case.
 
@@ -122,7 +122,7 @@ The repository uses pnpm 10 and supports Node.js 20 or newer. The root scripts c
 
 Each directory under `recipes/` contains a prompt, tool declarations, and a deterministic checklist. Included examples cover lead qualification, support resolution, and payment reminders.
 
-- [Provider integration guide](docs/PROVIDERS.md)
+- [Provider integration guide](docs/providers.md)
 - [Recipe authoring guide](docs/RECIPE_AUTHORING.md)
 - [QA checklist examples](docs/QA_CHECKLISTS.md)
 - [API reference](docs/API_REFERENCE.md)
@@ -135,7 +135,7 @@ apps/worker    BullMQ consumers
 apps/web       React/Vite operations console
 packages/core  shared session contracts and loop primitives
 packages/qa    deterministic checklist schema and scorer
-packages/providers  provider interfaces and mock/stub adapters
+packages/providers  provider interfaces, mock adapters and optional real adapters
 recipes        prompts, tools, and QA checklists
 ```
 
