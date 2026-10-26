@@ -1,49 +1,34 @@
 # Roadmap
 
-open-bpo is a small, runnable reference stack first. Roadmap items should preserve the no-key mock path and avoid customer data, credentials, or private prompts.
+open-bpo is a small, runnable reference stack. Every item keeps the no-key mock path working and keeps customer data, credentials and private prompts out of the repo. Want to help? Pick a `good first issue` and comment to claim it.
 
-## Good first issue ideas
+## Now (shipped, or being worked on)
+- ✅ Keyless `pnpm demo`: simulated inbound and outbound calls, ops console, session traces, deterministic QA with fatal checks
+- ✅ Recipes: lead qualification, support, payment reminders
+- ✅ Optional real providers with your own keys: Twilio, Exotel, Sarvam, Deepgram, ElevenLabs, OpenAI-compatible or Azure ([providers.md](docs/providers.md))
+- ✅ Provider template with a test ([extending.md](docs/extending.md)), Docker Compose and Codespaces setup, gitleaks in CI
+- 🚧 MCP server and agent compatibility (PR #12)
+- 🚧 Session duration in the console ([#9](https://github.com/nitturkaryash/open-bpo/issues/9), claimed)
 
-These are intentionally scoped so a new contributor can turn one item into one issue and one pull request.
+## Next (good first issues, open for contributors)
+- [#2](https://github.com/nitturkaryash/open-bpo/issues/2) API health endpoint test
+- [#3](https://github.com/nitturkaryash/open-bpo/issues/3) Empty-state screenshot test
+- [#4](https://github.com/nitturkaryash/open-bpo/issues/4) Document alternate demo ports
+- [#5](https://github.com/nitturkaryash/open-bpo/issues/5) Recipe ID validation
+- [#6](https://github.com/nitturkaryash/open-bpo/issues/6) Cleaner demo shutdown logging
+- [#7](https://github.com/nitturkaryash/open-bpo/issues/7) QA verdict filter
+- [#8](https://github.com/nitturkaryash/open-bpo/issues/8) Test demo call retention
+- Recipe validation in CI, plus contract tests for API routes and queue payloads
+- Docker Compose health check for the web service
 
-1. Add unit tests for `keyword_any` checklist rules with mixed-case transcripts.
-2. Add unit tests for `keyword_all` rules that report every missing keyword.
-3. Add unit tests for `keyword_none` fatal-rule behavior.
-4. Add unit tests for regex rules with and without flags.
-5. Validate that checklist `warningThreshold` does not exceed `passThreshold`.
-6. Add a CLI command that validates every recipe directory.
-7. Sort recipe IDs in the `/v1/recipes` response.
-8. Add an empty-state explanation to the calls table.
-9. Add a copy button for call and session IDs in the console.
-10. Add a recipe filter to the calls view.
-11. Show checklist version in the QA detail panel.
-12. Add loading skeletons to the console panels.
-13. Add an accessible label and focus state to every console control.
-14. Document how to change the default API and web ports.
-15. Add a mock transcript fixture for the support recipe.
-16. Add a mock transcript fixture for the payment-reminder recipe.
-17. Add a recipe template directory with annotated placeholder files.
-18. Add a health check for the web service in Docker Compose.
-19. Add graceful shutdown handling to the API process.
-20. Add graceful shutdown handling to both BullMQ workers.
-
-## Next
-
-- Contract tests for API routes and queue payloads
-- Provider adapter examples backed by local fakes
-- Recipe validation in CI
-- OpenTelemetry traces across API, queue, worker, and database
-- Authentication and tenant-boundary reference implementation
-- Postgres migrations and documented upgrade/rollback flow
-- Retry, dead-letter, and replay tools for failed jobs
+## Later (planned, not built)
+- Real `LiveKitProvider` (create rooms, dispatch agents) and a Pipecat bridge ([integrations.md](docs/integrations.md))
+- Streaming audio interfaces (frames, cancellation, barge-in)
+- OpenTelemetry traces across API, queue, worker and database
+- Authentication and a tenant-boundary reference implementation
+- Postgres migrations with a documented upgrade and rollback flow
+- Retry, dead-letter and replay tools for failed jobs
 - Browser tests for the golden path
 
-## Later
-
-- Real-time media bridge reference implementation
-- Human handoff and supervisor intervention contracts
-- Versioned recipe registry and evaluation datasets
-- Kubernetes deployment example with production security notes
-- Retention controls for transcripts and call metadata
-
-Roadmap entries are direction, not release commitments. Open a feature request before starting a cross-package change.
+## More starter ideas
+Unit tests for the `keyword_any`, `keyword_all`, `keyword_none` and regex checklist rules · checking that `warningThreshold` doesn't exceed `passThreshold` · a recipe-validation CLI · sorted `/v1/recipes` · copy buttons for IDs · a recipe filter · checklist version in the QA panel · loading skeletons · accessible labels and focus states · fixtures for the support and payment-reminder recipes · graceful shutdown for the API and workers.
