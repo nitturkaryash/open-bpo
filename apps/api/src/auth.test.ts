@@ -60,4 +60,37 @@ describe("API authentication", () => {
     // Schema validation rejects it (the API has no custom error handler, so this surfaces as an error status).
     expect(response.statusCode).toBeGreaterThanOrEqual(400);
   });
+
+  it("returns 400 for an unknown recipe ID without creating a call or session", async () => {
+    const app = await buildDemoApp({ env: { NODE_ENV: "test", OPEN_BPO_ALLOW_NO_AUTH: "true" } });
+    apps.push(app);
+
+    const response = await app.inject({
+      method: "POST",
+      url: "/v1/demo/calls/inbound",
+      payload: { recipeId: "recipe-that-does-not-exist" }
+    });
+
+    expect(response.statusCode).toBe(400);
+    expect(response.json()).toEqual({ error: "Unknown recipeId: recipe-that-does-not-exist" });
+    expect((await app.inject({ method: "GET", url: "/v1/calls" })).json().calls).toHaveLength(0);
+    expect((await app.inject({ method: "GET", url: "/v1/sessions" })).json().sessions).toHaveLength(0);
+  });
+
+  it("queues a demo call when the recipe ID exists", async () => {
+    const app = await buildDemoApp({ env: { NODE_ENV: "test", OPEN_BPO_ALLOW_NO_AUTH: "true" } });
+    apps.push(app);
+
+    const response = await app.inject({
+      method: "POST",
+      url: "/v1/demo/calls/inbound",
+      payload: { recipeId: "lead-qualification" }
+    });
+
+    expect(response.statusCode).toBe(202);
+    expect(response.json().status).toBe("queued");
+    expect(response.json().callId).toBeTruthy();
+    expect((await app.inject({ method: "GET", url: "/v1/calls" })).json().calls).toHaveLength(1);
+    expect((await app.inject({ method: "GET", url: "/v1/sessions" })).json().sessions).toHaveLength(1);
+  });
 });
