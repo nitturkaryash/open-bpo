@@ -2,10 +2,12 @@ import { spawn } from "node:child_process";
 
 let stopping = false;
 let exitCode = 0;
+let shutdownTimer;
 const children = new Set();
 
 function finish() {
   if (!stopping || children.size > 0) return;
+  clearTimeout(shutdownTimer);
   console.log("open-bpo demo stopped: API, worker, and web processes have exited");
   process.exit(exitCode);
 }
@@ -22,6 +24,15 @@ function stop(code = 0) {
   for (const child of children) {
     child.kill("SIGTERM");
   }
+
+  shutdownTimer = setTimeout(() => {
+    for (const child of children) {
+      child.kill("SIGKILL");
+    }
+
+    process.exit(exitCode);
+  }, 5000);
+  shutdownTimer.unref();
 
   finish();
 }
