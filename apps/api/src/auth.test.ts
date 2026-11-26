@@ -7,6 +7,21 @@ afterEach(async () => {
   await Promise.all(apps.splice(0).map((app) => app.close()));
 });
 
+describe("API health", () => {
+  it("returns the health status and service name", async () => {
+    const app = await buildDemoApp({ env: { NODE_ENV: "test", OPEN_BPO_ALLOW_NO_AUTH: "true" } });
+    apps.push(app);
+
+    const response = await app.inject({ method: "GET", url: "/health" });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual({
+      status: "ok",
+      service: "open-bpo-demo-api"
+    });
+  });
+});
+
 describe("API authentication", () => {
   it("keeps health open and protects v1 routes when configured", async () => {
     const token = "test-auth-marker";
